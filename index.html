@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="jp">
+    <head>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+
+        <script type="text/javascript" href="./index.js"> </script>
+
+        <script defer src="https://use.fontawesome.com/releases/v6.1.1/js/all.js"></script>
+        <meta charset="utf-8">
+        <title> ろる単位計算機 </title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    </head>
+    <body>
+        <section class="section">
+            <div class="container has-text-centered">
+                <h1 class="title">ロル計算</h1>
+                <h1 class="subtitle">1ロル = 22万。ロル単位で計算をします。</h1>
+
+                <h1 class="subtitle" id="result"> No Results. </h1>
+                <div class="control">
+                    <input class="input" id="math" type="number" placeholder="1RoRu = 220000" value="220000">
+                  </div>
+            </div>
+        </section>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script type="text/javascript">       
+            $(window).on('load', function(){
+                setInterval(() => {
+                    console.log('LOG : Load')
+                    run()
+                },1000)
+            })
+
+            function run() {
+                const math = document.getElementById('math')
+                const result = document.getElementById('result')
+                const roru = 220000;
+                const value = Number(math.value)
+                result.innerHTML = value / roru + "ロル"
+}
+
+        </script>
+    </body>
+</html>
