@@ -12,10 +12,32 @@
     </head>
     <body>
         <section class="section">
-            <div class="container has-text-centered">
+        <div class="box" id="options" style="display:none">
+            <ul>
+                <li>
+                    <p class="title is-4">切り捨て</p>
+                    <p class="subtitle is-5">  例 : 2.23234234ロル => 2ロル </p>
+                    <div class="buttons has-addons">
+                    <button class="button " id="k_on">有効</button>
+                    <button class="button is-danger" id="k_off">無効</button>
+                    </div>
+                </li>
+                <br>
+                <li>
+                    <p class="title is-4">繰り上げ</p>
+                    <p class="subtitle is-5">例 : 0.1ロル => 1ロル</p>
+                    <div class="buttons has-addons">
+                        <button class="button " id="u_on">有効</button>
+                        <button class="button is-danger" id="u_off">無効</button>
+                    </div>
+                </li>
+            </ul>
+        </div>
+            <button id="option" class="button"><i class="fa-solid fa-gear"></i>
+            </button>
+            <div class="container has-text-centered" id="main">
                 <h1 class="title">ロル計算</h1>
                 <h1 class="subtitle">1ロル = 22万。ロル単位で計算をします。</h1>
-
                 <h1 class="subtitle" id="result"> No Results. </h1>
                 <div class="control">
                     <input class="input" id="math" type="number" placeholder="1RoRu = 220000" value="220000">
@@ -23,7 +45,40 @@
             </div>
         </section>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-        <script type="text/javascript">       
+        <!--
+(｡☉౪ ⊙｡)
+( ;⊙´◞౪◟`⊙)
+( ´థ,_‥థ｀)
+( ´◉‿ゝ◉`)
+( ՞ਊ ՞)
+( ՞ਊ ՞)☝
+( ՞ਊ ՞)☞
+( ఠ_ఠ )
+( ఠൠఠ )
+( ≖ิൠ≖ิ )
+( ☞◔ ౪◔)☞
+( ◔ ౪◔)⊃━☆ﾟ.*・
+( ☞´◔‿ゝ◔`)☞
+( ●• ਊ • ●)
+(´◉◞౪◟◉三◉◞౪◟◉`)
+((╬ಠิ益ಠิ))
+(*ಠ_ಠ)つ
+(◞≼◎≽◟◞౪◟◞≼◎≽◟)
+ʅ(´՞ਊ ՞ )ʃ三ʅ(´ ՞ਊ ՞)ʃ
+(✧≖‿ゝ≖)
+ლ（இ e இ｀。ლ）
+（ ´☣///_ゝ///☣｀）
+٩( ๏ ๏)۶
+
+
+
+
+ということでここからはスパゲッティーVar乱用 TrueFalse ごり押し君です。
+        -->
+        <script type="text/javascript">     
+                var kirisute = false
+                var kuriage = false
+                var sisya = false  
             $(window).on('load', function(){
                 setInterval(() => {
                     console.log('LOG : Load')
@@ -31,14 +86,69 @@
                 },1000)
             })
 
+            $("#option").click(function(){
+                   $("#main").toggle(1000)
+                   $("#options").toggle(1000)
+            })
+
+
+
+                $("#k_on").click(function(){
+                    if(kirisute === false){
+                        kirisute = true;
+                        $("#k_on").addClass('is-success')
+                        $("#k_off").removeClass('is-danger')
+                        if(kuriage === true){
+                            kuriage = false;
+                            $("#u_off").addClass('is-danger')
+                            $("#u_on").removeClass('is-success')
+                        }
+                    }
+                })
+                $("#k_off").click(function(){
+                    if(kirisute === true){
+                        kirisute = false;
+                        $("#k_off").addClass('is-danger')
+                        $("#k_on").removeClass('is-success')
+                    }
+                })
+
+                $("#u_on").click(function(){
+                    if(kuriage === false){
+                        kuriage = true;
+                        $("#u_on").addClass('is-success')
+                        $("#u_off").removeClass('is-danger')
+                        if(kirisute === true){
+                            kirisute = false;
+                            $("#k_off").addClass('is-danger')
+                            $("#k_on").removeClass('is-success')
+                        }
+                    }
+                })
+                $("#u_off").click(function(){
+                    if(kuriage === true){
+                        kuriage = false;
+                        $("#u_off").addClass('is-danger')
+                        $("#u_on").removeClass('is-success')
+                    }
+                })
+
+
             function run() {
+                console.log(`繰り上げ : `+kuriage+`切り捨て : `+kirisute)
                 const math = document.getElementById('math')
                 const result = document.getElementById('result')
                 const roru = 220000;
                 const value = Number(math.value)
-                result.innerHTML = value / roru + "ロル"
-}
-
+                if(kirisute === true){
+                    result.innerHTML = Math.floor(value / roru)+ "ロル"
+                }else if(kuriage === true){
+                    result.innerHTML = Math.ceil(value / roru)+ "ロル"
+                } else {
+                    result.innerHTML = value / roru+ "ロル"
+                }
+                
+            }
         </script>
     </body>
 </html>
